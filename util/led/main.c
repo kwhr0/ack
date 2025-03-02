@@ -61,8 +61,11 @@ static void do_statistics(void);
 
 void addbase(struct outname*);
 
+static FILE *mapfile;
+
 int main(int argc, char** argv)
 {
+	char path[256];
 	initializations(argc, argv);
 	first_pass(argv);
 #ifndef NOSTATISTICS
@@ -70,10 +73,13 @@ int main(int argc, char** argv)
 		do_statistics();
 #endif
 	freeze_core();
+	sprintf(path, "%s/mapfile", getenv("PWD"));
+	mapfile = fopen(path, "w");
 	evaluate();
 	beginoutput();
 	second_pass(argv);
 	endoutput();
+	if (mapfile) fclose(mapfile);
 	stop();
 }
 
@@ -592,6 +598,11 @@ void addbase(struct outname* name)
 		return;
 
 	name->on_valu += outsect[sectindex].os_base;
+	if (mapfile)
+		fprintf(mapfile, "%06lo %03o %s\n",
+			(unsigned long)name->on_valu,
+			name->on_type,
+			address((name->on_type & S_EXT) ? ALLOGCHR : ALLOLCHR, (ind_t)name->on_foff));
 	debug(
 	    "%s: type 0x%x, value 0x%lx\n",
 	    address((name->on_type & S_EXT) ? ALLOGCHR : ALLOLCHR, (ind_t)name->on_foff), name->on_type,

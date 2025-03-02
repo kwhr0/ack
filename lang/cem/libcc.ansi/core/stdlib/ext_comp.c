@@ -787,18 +787,25 @@ void _dbl_ext_cvt(double value, struct EXTEND* e)
 {
 	/*	Convert double to extended
 	*/
-	int exponent;
+	int exponent, i;
 
 	value = frexp(value, &exponent);
 	e->sign = value < 0.0;
 	if (e->sign)
 		value = -value;
 	e->exp = exponent - 1;
-	value *= 4294967296.0;
-	e->m1 = value;
-	value -= e->m1;
-	value *= 4294967296.0;
-	e->m2 = value;
+	e->m1 = 0;
+	e->m2 = 0;
+	for (i = 64; i > 0 && value != 0; i--) {
+		double ipart;
+
+		b64_sft(&(e->mantissa),-1);
+		value = modf(2.0*value, &ipart);
+		if (ipart) {
+			e->m2 |= 1;
+		}
+	}
+	if (i > 0) b64_sft(&(e->mantissa),-i);
 }
 
 static struct EXTEND max_d;

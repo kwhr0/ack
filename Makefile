@@ -5,7 +5,7 @@
 
 # What platform to build for by default?
 
-DEFAULT_PLATFORM ?= pc86
+DEFAULT_PLATFORM ?= pdpv7
 
 # Where should the ACK put its temporary files?
 
@@ -22,7 +22,7 @@ endif
 ifeq ($(OS),Windows_NT)
 PREFIX ?= c:/ack
 else
-PREFIX ?= /usr/local
+PREFIX ?= /opt/local
 #PREFIX = $(INSDIR)
 endif
 
