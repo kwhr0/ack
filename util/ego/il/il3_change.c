@@ -14,16 +14,16 @@
 #include <em_pseu.h>
 #include <em_spec.h>
 #include <em_mes.h>
-#include "../share/types.h"
+#include "ego/share/types.h"
 #include "il.h"
-#include "../share/debug.h"
-#include "../share/alloc.h"
-#include "../share/global.h"
-#include "../share/def.h"
-#include "../share/lset.h"
-#include "../share/utils.h"
-#include "../share/get.h"
-#include "../share/put.h"
+#include "ego/share/debug.h"
+#include "ego/share/alloc.h"
+#include "ego/share/global.h"
+#include "ego/share/def.h"
+#include "ego/share/lset.h"
+#include "ego/share/utils.h"
+#include "ego/share/get.h"
+#include "ego/share/put.h"
 #include "il_aux.h"
 #include "il3_change.h"
 #include "il3_aux.h"
@@ -220,7 +220,7 @@ static void act_info(offset off, actual_p acts, offset ab_off, actual_p* act_out
 		}
 		sum += act->ac_size;
 	}
-	assert(FALSE);
+	assert(false);
 }
 
 static void store_off(offset off, line_p l)

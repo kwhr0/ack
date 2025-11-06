@@ -10,14 +10,14 @@
 
 #include <stdlib.h>
 #include <em_reg.h>
-#include "../share/types.h"
-#include "../share/debug.h"
-#include "../share/def.h"
-#include "../share/global.h"
-#include "../share/lset.h"
-#include "../share/cset.h"
-#include "../share/alloc.h"
-#include "../share/utils.h"
+#include "ego/share/types.h"
+#include "ego/share/debug.h"
+#include "ego/share/def.h"
+#include "ego/share/global.h"
+#include "ego/share/lset.h"
+#include "ego/share/cset.h"
+#include "ego/share/alloc.h"
+#include "ego/share/utils.h"
 #include "ra.h"
 #include "ra_aux.h"
 #include "ra_interv.h"
@@ -58,7 +58,7 @@ static bool fits_in(alloc_p a, alloc_p b, bool* cont_item)
 	 * allocation.
 	 */
 
-	*cont_item = FALSE;
+	*cont_item = false;
 	if (a->al_regtype == b->al_regtype)
 	{
 		while (b != (alloc_p)0)
@@ -68,7 +68,7 @@ static bool fits_in(alloc_p a, alloc_p b, bool* cont_item)
 			b = b->al_mates;
 			if (b != (alloc_p)0 && a->al_item == b->al_item)
 			{
-				*cont_item = TRUE;
+				*cont_item = true;
 			}
 		}
 	}
@@ -253,7 +253,7 @@ static void account_regsave(alloc_p packed, alloc_p unpacked)
 
 	initregcount();
 	checked = make_dummy();
-	while (TRUE)
+	while (true)
 	{
 		best_cumprofits(packed, &x, &prev);
 		if (x == (alloc_p)0)
@@ -292,7 +292,7 @@ static bool in_single_reg(item_p item, alloc_p packed)
 	 */
 
 	alloc_p x, m;
-	bool seen = FALSE;
+	bool seen = false;
 
 	for (x = packed->al_next; x != (alloc_p)0; x = x->al_next)
 	{
@@ -301,13 +301,13 @@ static bool in_single_reg(item_p item, alloc_p packed)
 			if (m->al_item == item)
 			{
 				if (seen)
-					return FALSE;
-				seen = TRUE;
+					return false;
+				seen = true;
 				break;
 			}
 		}
 	}
-	return TRUE;
+	return true;
 }
 
 static alloc_p find_prev(alloc_p alloc, alloc_p list)

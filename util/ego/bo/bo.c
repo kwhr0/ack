@@ -14,18 +14,18 @@
 #include <em_pseu.h>
 #include <em_spec.h>
 #include <em_flag.h>
-#include "../share/types.h"
-#include "../share/debug.h"
-#include "../share/global.h"
-#include "../share/files.h"
-#include "../share/get.h"
-#include "../share/put.h"
-#include "../share/lset.h"
-#include "../share/map.h"
-#include "../share/alloc.h"
-#include "../share/utils.h"
-#include "../share/def.h"
-#include "../share/go.h"
+#include "ego/share/types.h"
+#include "ego/share/debug.h"
+#include "ego/share/global.h"
+#include "ego/share/files.h"
+#include "ego/share/get.h"
+#include "ego/share/put.h"
+#include "ego/share/lset.h"
+#include "ego/share/map.h"
+#include "ego/share/alloc.h"
+#include "ego/share/utils.h"
+#include "ego/share/def.h"
+#include "ego/share/go.h"
 
 extern char em_flag[];
 
@@ -199,7 +199,7 @@ static void mv_code(bblock_p b1, bblock_p b2)
 {
 	line_p l, x;
 
-	l = last_code(b2->b_start, TRUE);
+	l = last_code(b2->b_start, true);
 	assert(INSTR(l) == op_bra);
 	DLINK(l, b1->b_start);
 	x = l->l_next;
@@ -220,12 +220,12 @@ static void bo_switch(bblock_p b)
 	{
 		s = (bblock_p)Lelem(Lfirst(b->b_succ));
 		if (b->b_start != (line_p)0 && s->b_start != (line_p)0 && Lnrelems(s->b_pred) == 1
-		    && (bra = last_code(b->b_start, TRUE)) != (line_p)0 && INSTR(bra) == op_bra
+		    && (bra = last_code(b->b_start, true)) != (line_p)0 && INSTR(bra) == op_bra
 		    && (s->b_next == (bblock_p)0 || !Lis_elem(s->b_next, s->b_succ)
-		        || ((bra = last_code(s->b_start, TRUE)) != (line_p)0
+		        || ((bra = last_code(s->b_start, true)) != (line_p)0
 		            && (em_flag[INSTR(bra) - sp_fmnem] & EM_FLO) == FLO_T)))
 		{
-			l = last_code(s->b_start, FALSE);
+			l = last_code(s->b_start, false);
 			if (INSTR(l) == ps_end)
 			{
 				if (PREV(l) == (line_p)0)

@@ -14,13 +14,13 @@
 #include <em_mes.h>
 #include <em_ego.h>
 #include <em_reg.h>
-#include "../share/types.h"
-#include "../share/debug.h"
-#include "../share/def.h"
-#include "../share/global.h"
-#include "../share/lset.h"
-#include "../share/utils.h"
-#include "../share/alloc.h"
+#include "ego/share/types.h"
+#include "ego/share/debug.h"
+#include "ego/share/def.h"
+#include "ego/share/global.h"
+#include "ego/share/lset.h"
+#include "ego/share/utils.h"
+#include "ego/share/alloc.h"
 #include "ra.h"
 #include "ra_interv.h"
 #include "ra_xform.h"
@@ -125,7 +125,7 @@ void init_replacements(short psize, short wsize)
 				             */
 					break;
 				default:
-					assert(FALSE);
+					assert(false);
 			}
 		}
 	}
@@ -485,11 +485,11 @@ bool always_in_reg(offset off, alloc_p allocs, short* size_out)
 			if (m->al_iswholeproc && item->it_type == LOCALVAR && item->i_t.it_off == off)
 			{
 				*size_out = item->it_size;
-				return TRUE;
+				return true;
 			}
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 void rem_locals(proc_p p, alloc_p allocs)

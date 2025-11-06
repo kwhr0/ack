@@ -11,12 +11,12 @@
 
 #include <em_mnem.h>
 #include <em_pseu.h>
-#include "../share/types.h"
+#include "ego/share/types.h"
 #include "sr.h"
-#include "../share/debug.h"
-#include "../share/global.h"
-#include "../share/lset.h"
-#include "../share/utils.h"
+#include "ego/share/debug.h"
+#include "ego/share/global.h"
+#include "ego/share/lset.h"
+#include "ego/share/utils.h"
 #include "sr_aux.h"
 #include "sr_xform.h"
 
@@ -28,15 +28,15 @@ bool is_loopconst(line_p lnp, lset vars)
 
 	assert(TYPE(lnp) == OPSHORT || TYPE(lnp) == OPOFFSET);
 	if (!is_regvar(off_set(lnp)))
-		return FALSE;
+		return false;
 	for (i = Lfirst(vars); i != (Lindex)0; i = Lnext(i, vars))
 	{
 		if (same_local(Lelem(i), lnp))
 		{
-			return FALSE; /* variable was changed */
+			return false; /* variable was changed */
 		}
 	}
-	return TRUE;
+	return true;
 }
 
 bool is_caddress(line_p lnp, lset vars) /* variables changed in loop */
@@ -47,18 +47,18 @@ bool is_caddress(line_p lnp, lset vars) /* variables changed in loop */
 	 */
 
 	if (lnp == (line_p)0)
-		return FALSE;
+		return false;
 	switch (INSTR(lnp))
 	{
 		case op_lae:
 		case op_lal:
-			return TRUE;
+			return true;
 		case op_lol:
 			return ps == ws && is_loopconst(lnp, vars);
 		case op_ldl:
 			return ps == 2 * ws && is_loopconst(lnp, vars);
 		default:
-			return FALSE;
+			return false;
 	}
 	UNREACHABLE_CODE;
 }

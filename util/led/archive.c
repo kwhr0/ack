@@ -45,7 +45,6 @@ static long getsymdeftable(void)
 	struct ranlib* ran;
 	long count;
 	long nran, nchar;
-	extern FILE* infile;
 
 	count = nran = rd_int4(infile);
 	debug("%ld ranlib structs, ", nran, 0, 0, 0);
@@ -105,7 +104,7 @@ void arch(void)
 		debug("(re)scan ranlib table\n", 0, 0, 0, 0);
 		ranindex = (ind_t)0;
 		count = nran;
-		resolved = FALSE;
+		resolved = false;
 		while (count > 0)
 		{
 			struct ranlib* ran;
@@ -126,7 +125,7 @@ void arch(void)
 			get_archive_header(&arhdr);
 			modulname = arhdr.ar_name;
 			verbose("defines %s", string, 0, 0, 0);
-			resolved = TRUE;
+			resolved = true;
 			/*
 			 * This archive member is going to be linked,
 			 * so we don't need to know what else it defines.

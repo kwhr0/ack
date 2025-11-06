@@ -11,20 +11,20 @@
 #include <stdio.h>
 #include <em_mnem.h>
 #include <em_pseu.h>
-#include "../share/types.h"
+#include "ego/share/types.h"
 #include "il.h"
-#include "../share/debug.h"
-#include "../share/alloc.h"
-#include "../share/cset.h"
-#include "../share/global.h"
-#include "../share/lset.h"
-#include "../share/utils.h"
+#include "ego/share/debug.h"
+#include "ego/share/alloc.h"
+#include "ego/share/cset.h"
+#include "ego/share/global.h"
+#include "ego/share/lset.h"
+#include "ego/share/utils.h"
 #include "il1_aux.h"
 #include "il1_formal.h"
 #include "il1_cal.h"
 #include "il1_anal.h"
 #include "il_aux.h"
-#include "../share/put.h"
+#include "ego/share/put.h"
 
 #define ENVIRON(p) (p->p_flags1 & (byte)PF_ENVIRON)
 #define RETURN_BLOCK(b) (Lnrelems(b->b_succ) == 0)
@@ -35,7 +35,7 @@
 /*
 #define CALLS_UNKNOWN(p)	(p->p_flags1 & (byte) PF_CALUNKNOWN)
 */
-#define CALLS_UNKNOWN(p) (FALSE)
+#define CALLS_UNKNOWN(p) (false)
 
 void apriori(proc_p proctab)
 {
@@ -156,14 +156,14 @@ void anal_proc(proc_p p, FILE* cf, FILE* ccf)
 	 */
 
 	bblock_p b;
-	bool fallthrough = TRUE;
+	bool fallthrough = true;
 
 	cchead = (calcnt_p)0;
 	for (b = p->p_start; b != (bblock_p)0; b = b->b_next)
 	{
 		if (RETURN_BLOCK(b) && !LAST_BLOCK(b))
 		{
-			fallthrough = FALSE;
+			fallthrough = false;
 			/* p contains a RET instruction somewhere
 			 * in the middle of its code.
 			 */

@@ -11,15 +11,15 @@
 #include <em_pseu.h>
 #include <em_spec.h>
 #include <em_mnem.h>
-#include "../share/types.h"
-#include "../share/global.h"
-#include "../share/debug.h"
-#include "../share/def.h"
-#include "../share/utils.h"
+#include "ego/share/types.h"
+#include "ego/share/global.h"
+#include "ego/share/debug.h"
+#include "ego/share/def.h"
+#include "ego/share/utils.h"
 #include "ic.h"
 #include "ic_io.h"
 #include "ic_lookup.h"
-#include "../share/alloc.h"
+#include "ego/share/alloc.h"
 #include "ic_aux.h"
 
 /* opr_size */
@@ -87,7 +87,7 @@ static offset argsize(arg_p arg)
 		case ARGFCN:
 			return arg->a_a.a_con.ac_length;
 		default:
-			assert(FALSE);
+			assert(false);
 	}
 	UNREACHABLE_CODE;
 }
@@ -118,7 +118,7 @@ static offset blocksize(byte pseudo, arg_p args)
 			}
 			return sum;
 		default:
-			assert(FALSE);
+			assert(false);
 	}
 	UNREACHABLE_CODE;
 }
@@ -181,7 +181,7 @@ void dblockdef(dblock_p db, int n, line_p lnp)
 			m = DROM;
 			break;
 		default:
-			assert(FALSE);
+			assert(false);
 	}
 	db->d_pseudo = m;
 	db->d_size = blocksize(m, ARG(lnp));
@@ -272,7 +272,7 @@ line_p arglist(int n)
 
 	lnp = newline(OPLIST);
 	app = &ARG(lnp);
-	moretocome = TRUE;
+	moretocome = true;
 	do
 	{
 		switch (table2())
@@ -330,10 +330,10 @@ line_p arglist(int n)
 				app = &ap->a_next;
 				break;
 			case sp_cend:
-				moretocome = FALSE;
+				moretocome = false;
 		}
 		if (n && (--n) == 0)
-			moretocome = FALSE;
+			moretocome = false;
 	} while (moretocome);
 	return (lnp);
 }

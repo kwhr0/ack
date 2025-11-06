@@ -21,25 +21,24 @@ jobs:
         update: true
         msystem: UCRT64
         install: >-
+          bison
+          flex
+          git
           make
           mingw-w64-ucrt-x86_64-gcc
           mingw-w64-ucrt-x86_64-lua
           mingw-w64-ucrt-x86_64-nsis
-          ninja
-          bison
-          flex
+          mingw-w64-ucrt-x86_64-pkg-config
+          mingw-w64-ucrt-x86_64-python
           zip
-          git
+          ninja
+          diffutils
 
     - uses: actions/checkout@v3
 
     - name: build
       run: |
-        make LDFLAGS="-s -static" CFLAGS=-Os
-
-    - name: package
-      run: |
-        make ack-setup.exe
+        make LDFLAGS="-s -static" ack-setup.exe
 
     - name: date
       run: |

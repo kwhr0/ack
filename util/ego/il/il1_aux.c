@@ -10,12 +10,12 @@
 
 #include <stdlib.h>
 #include <em_spec.h>
-#include "../share/types.h"
+#include "ego/share/types.h"
 #include "il.h"
-#include "../share/debug.h"
-#include "../share/alloc.h"
-#include "../share/global.h"
-#include "../share/lset.h"
+#include "ego/share/debug.h"
+#include "ego/share/alloc.h"
+#include "ego/share/global.h"
+#include "ego/share/lset.h"
 #include "il_aux.h"
 #include "il1_aux.h"
 
@@ -45,10 +45,10 @@ static bool is_reg(offset off, int s)
 		arg = ((line_p)Lelem(i))->l_a.la_arg->a_next;
 		if (arg->a_a.a_offset == off && arg->a_next->a_a.a_offset == s)
 		{
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 void rem_actuals(actual_p acts)
@@ -130,7 +130,7 @@ bool par_overlap(offset off1, int t1, offset off2, int t2)
 		}
 		else
 		{
-			return TRUE;
+			return true;
 		}
 	}
 }

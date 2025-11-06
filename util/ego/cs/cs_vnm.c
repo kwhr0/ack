@@ -7,10 +7,10 @@
 /* V A L U E N U M B E R I N G   M E T H O D */
 
 #include <em_mnem.h>
-#include "../share/types.h"
-#include "../share/global.h"
-#include "../share/debug.h"
-#include "../share/utils.h"
+#include "ego/share/types.h"
+#include "ego/share/global.h"
+#include "ego/share/debug.h"
+#include "ego/share/utils.h"
 #include "cs.h"
 #include "cs_alloc.h"
 #include "cs_aux.h"
@@ -175,7 +175,7 @@ static void fiddle_stack(line_p lnp)
 	switch (INSTR(lnp))
 	{
 		default:
-			assert(FALSE);
+			assert(false);
 			break;
 		case op_lor:
 			dummy.tk_vn = newvalnum();
@@ -293,7 +293,7 @@ static void hopeless(int instr)
 	switch (instr)
 	{
 		default:
-			assert(FALSE);
+			assert(false);
 			break;
 		case op_mon:
 		case op_str:
@@ -385,7 +385,7 @@ void vnm(bblock_p bp)
 				fiddle_stack(lnp);
 				break;
 			default:
-				assert(FALSE);
+				assert(false);
 				break;
 		}
 	}

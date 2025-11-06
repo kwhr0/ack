@@ -14,15 +14,15 @@
 #include <em_spec.h>
 #include <em_mnem.h>
 #include <em_pseu.h>
-#include "../share/types.h"
+#include "ego/share/types.h"
 #include "il.h"
-#include "../share/debug.h"
-#include "../share/get.h"
-#include "../share/put.h"
-#include "../share/alloc.h"
-#include "../share/global.h"
-#include "../share/lset.h"
-#include "../share/map.h"
+#include "ego/share/debug.h"
+#include "ego/share/get.h"
+#include "ego/share/put.h"
+#include "ego/share/alloc.h"
+#include "ego/share/global.h"
+#include "ego/share/lset.h"
+#include "ego/share/map.h"
 #include "il_aux.h"
 
 int tsize(int type)
@@ -40,7 +40,7 @@ int tsize(int type)
 		case POINTER:
 			return ps;
 		default:
-			assert(FALSE);
+			assert(false);
 	}
 	UNREACHABLE_CODE;
 }
@@ -75,7 +75,7 @@ line_p duplicate(line_p lnp)
 			PROC(l) = PROC(lnp);
 			break;
 		default:
-			assert(FALSE); /* cannot copy pseudo */
+			assert(false); /* cannot copy pseudo */
 	}
 	return l;
 }
@@ -218,7 +218,7 @@ call_p getcall(FILE* cf)
 		m = getshort();
 		act->ac_size = getoff();
 		act->ac_inl = getbyte();
-		act->ac_exp = getlines(cf, m, &voided, FALSE);
+		act->ac_exp = getlines(cf, m, &voided, false);
 		*app = act;
 		app = &act->ac_next;
 	}

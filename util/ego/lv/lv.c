@@ -13,23 +13,23 @@
 #include <em_spec.h>
 #include <em_mes.h>
 #include <em_ego.h>
-#include "../share/types.h"
+#include "ego/share/types.h"
 #include "lv.h"
-#include "../share/debug.h"
-#include "../share/global.h"
-#include "../share/lset.h"
-#include "../share/cset.h"
-#include "../share/def.h"
-#include "../share/files.h"
-#include "../share/alloc.h"
-#include "../share/map.h"
-#include "../share/get.h"
-#include "../share/put.h"
-#include "../share/utils.h"
-#include "../share/init_glob.h"
-#include "../share/locals.h"
-#include "../share/go.h"
-#include "../share/parser.h"
+#include "ego/share/debug.h"
+#include "ego/share/global.h"
+#include "ego/share/lset.h"
+#include "ego/share/cset.h"
+#include "ego/share/def.h"
+#include "ego/share/files.h"
+#include "ego/share/alloc.h"
+#include "ego/share/map.h"
+#include "ego/share/get.h"
+#include "ego/share/put.h"
+#include "ego/share/utils.h"
+#include "ego/share/init_glob.h"
+#include "ego/share/locals.h"
+#include "ego/share/go.h"
+#include "ego/share/parser.h"
 
 #define newlvbx() (bext_p) newstruct(bext_lv)
 #define oldlvbx(x) oldstruct(bext_lv, x)
@@ -37,7 +37,7 @@
 short nrvars;
 
 static int Slv;
-static bool mesgflag = FALSE; /* Suppress generation of live/dead info */
+static bool mesgflag = false; /* Suppress generation of live/dead info */
 
 static void app_block(line_p l, bblock_p b);
 
@@ -77,9 +77,9 @@ static bool is_dir_use(line_p l)
 		case op_loe:
 		case op_lol:
 		case op_sil:
-			return TRUE;
+			return true;
 		default:
-			return FALSE;
+			return false;
 	}
 	UNREACHABLE_CODE;
 }
@@ -103,9 +103,9 @@ static bool is_indir_use(line_p l)
 		case op_loi:
 		case op_los:
 		case op_mon:
-			return TRUE;
+			return true;
 		default:
-			return FALSE;
+			return false;
 	}
 	UNREACHABLE_CODE;
 }
@@ -122,9 +122,9 @@ static bool is_def(line_p l)
 		case op_stl:
 		case op_zre:
 		case op_zrl:
-			return TRUE;
+			return true;
 		default:
-			return FALSE;
+			return false;
 	}
 	UNREACHABLE_CODE;
 }
@@ -226,7 +226,7 @@ static void solve_lv(proc_p p)
 
 	bblock_p b;
 	cset newout = Cempty_set(nrvars);
-	bool change = TRUE;
+	bool change = true;
 
 	for (b = p->p_start; b != (bblock_p)0; b = b->b_next)
 	{
@@ -236,13 +236,13 @@ static void solve_lv(proc_p p)
 	}
 	while (change)
 	{
-		change = FALSE;
+		change = false;
 		for (b = p->p_start; b != (bblock_p)0; b = b->b_next)
 		{
 			unite_ins(b->b_succ, &newout);
 			if (!Cequal(newout, L_OUT(b)))
 			{
-				change = TRUE;
+				change = true;
 				Ccopy_set(newout, &L_OUT(b));
 				Ccopy_set(newout, &L_IN(b));
 				Csubtract(DEF(b), &L_IN(b));
@@ -378,7 +378,7 @@ static void definition(line_p l, bool* useless_out, short* v_out, bool mesgflag)
 	bool found;
 	local_p loc;
 
-	*useless_out = FALSE;
+	*useless_out = false;
 	var_nr(l, &v, &found);
 	if (found && IS_LOCAL(v))
 	{
@@ -412,7 +412,7 @@ static void definition(line_p l, bool* useless_out, short* v_out, bool mesgflag)
 				{
 					appnd_line(make_mesg(ego_dead, loc), l);
 				}
-				*useless_out = TRUE;
+				*useless_out = true;
 			}
 		}
 	}
@@ -590,7 +590,7 @@ void lv_flags(void* vp)
 	switch (*p)
 	{
 		case 'N':
-			mesgflag = TRUE;
+			mesgflag = true;
 			break;
 	}
 }

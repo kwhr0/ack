@@ -10,13 +10,13 @@
 
 #include <em_mnem.h>
 #include <em_pseu.h>
-#include "../share/types.h"
-#include "../share/lset.h"
-#include "../share/cset.h"
-#include "../share/debug.h"
-#include "../share/global.h"
-#include "../share/map.h"
-#include "../share/utils.h"
+#include "ego/share/types.h"
+#include "ego/share/lset.h"
+#include "ego/share/cset.h"
+#include "ego/share/debug.h"
+#include "ego/share/global.h"
+#include "ego/share/map.h"
+#include "ego/share/utils.h"
 #include "sr.h"
 #include "sr_aux.h"
 #include "sr_cand.h"
@@ -75,10 +75,10 @@ static bool is_cand(line_p lnp)
 	{
 		if (same_local(lnp, Lelem(i)))
 		{
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 static void make_cand(line_p lnp)
@@ -114,10 +114,10 @@ static bool not_dismissed(line_p lnp)
 	{
 		if (same_local(Lelem(i), lnp))
 		{
-			return FALSE; /* variable was dismissed */
+			return false; /* variable was dismissed */
 		}
 	}
-	return TRUE;
+	return true;
 }
 
 static void try_cand(line_p lnp, bblock_p b)

@@ -42,6 +42,7 @@ static char rcsid[] = "$Id$";
 #include "sym.h"
 #include "finish.h"
 #include "write.h"
+#include "scan.h"
 
 #ifndef USEMALLOC
 static void copy_down(struct memory* mem, ind_t dist);
@@ -51,12 +52,12 @@ static void free_saved_moduls(void);
 
 struct memory mems[NMEMS];
 
-bool incore = TRUE; /* TRUE while everything can be kept in core. */
+bool incore = true; /* true while everything can be kept in core. */
 ind_t core_position = (ind_t)0; /* Index of current module. */
 
 #ifdef USEMALLOC
 static size_t modl_initial_size;
-static bool frozen = FALSE; /* TRUE after freeze_core(). */
+static bool frozen = false; /* true after freeze_core(). */
 
 #else /* ifndef USEMALLOC */
 #define GRANULE 64 /* power of 2 */
@@ -118,7 +119,7 @@ void init_core(void)
 	}
 	if (failed_mem != NULL)
 	{
-		incore = FALSE; /* In core strategy failed. */
+		incore = false; /* In core strategy failed. */
 		/* Undo allocations. */
 		for (mem = mems; mem != failed_mem; mem++)
 			free(mem->mem_base);
@@ -187,7 +188,7 @@ void init_core(void)
 
 	if (sbreak(total_size) == -1)
 	{
-		incore = FALSE; /* In core strategy failed. */
+		incore = false; /* In core strategy failed. */
 		if (sbreak(AT_LEAST) == -1)
 			fatal("no core at all");
 
@@ -267,8 +268,6 @@ static ind_t move_up(int piece, ind_t incr)
 #endif /* ndef USEMALLOC */
 }
 
-extern int passnumber;
-
 /*
  * This routine is called if `piece' needs `incr' bytes and the system won't
  * give them. We first steal the free bytes of all lower pieces and move them
@@ -338,22 +337,22 @@ static bool compact(int piece, ind_t incr, int flag)
 			}
 			newsize -= INCRSIZE < newsize ? INCRSIZE : newsize;
 		}
-		frozen = TRUE; /* Prevent later realloc(). */
+		frozen = true; /* Prevent later realloc(). */
 	}
 	/* Now grow our piece. */
 	if (incr == 0)
-		return TRUE;
+		return true;
 	mem = &mems[piece];
 	oldsize = mem->mem_full + mem->mem_left;
 	newsize = oldsize + incr;
 	if (newsize < mem->mem_full)
-		return FALSE; /* The size overflowed. */
+		return false; /* The size overflowed. */
 	newbase = realloc(mem->mem_base, newsize);
 	if (newbase == NULL)
-		return FALSE;
+		return false;
 	mem->mem_base = newbase;
 	mem->mem_left += incr;
-	return TRUE;
+	return true;
 
 #else /* ifndef USEMALLOC */
 	ind_t gain, size;
@@ -605,7 +604,7 @@ ind_t alloc(int piece, size_t size)
 	}
 	else
 	{
-		incore = FALSE;
+		incore = false;
 		return BADOFF;
 	}
 }

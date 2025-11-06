@@ -13,18 +13,18 @@
 #include <string.h>
 #include <em_mnem.h>
 #include <em_spec.h>
-#include "../share/types.h"
-#include "../share/debug.h"
-#include "../share/global.h"
-#include "../share/files.h"
-#include "../share/get.h"
-#include "../share/put.h"
-#include "../share/lset.h"
-#include "../share/map.h"
-#include "../share/alloc.h"
-#include "../share/utils.h"
-#include "../share/go.h"
-#include "../share/stack_chg.h"
+#include "ego/share/types.h"
+#include "ego/share/debug.h"
+#include "ego/share/global.h"
+#include "ego/share/files.h"
+#include "ego/share/get.h"
+#include "ego/share/put.h"
+#include "ego/share/lset.h"
+#include "ego/share/map.h"
+#include "ego/share/alloc.h"
+#include "ego/share/utils.h"
+#include "ego/share/go.h"
+#include "ego/share/stack_chg.h"
 
 /* Stack pollution throws away the ASP instructions after a procedure call.
  * This saves a lot of code, at the cost of some extra stack space.
@@ -84,7 +84,7 @@ static void stack_pollution(bblock_p b)
 
 	line_p l;
 	line_p asp, next = b->b_start;
-	bool asp_seen = FALSE;
+	bool asp_seen = false;
 	int stack_diff, pop, push;
 	bool ok;
 
@@ -108,7 +108,7 @@ static void stack_pollution(bblock_p b)
 					if (!ok || (stack_diff -= pop) < 0)
 					{
 						/* can't eliminate last ASP */
-						asp_seen = FALSE;
+						asp_seen = false;
 					}
 					else
 					{
@@ -139,7 +139,7 @@ static void stack_pollution(bblock_p b)
 			}
 		}
 		asp = l;
-		asp_seen = TRUE; /* use new ASP for next try! */
+		asp_seen = true; /* use new ASP for next try! */
 	} while (asp != (line_p)0);
 }
 
@@ -162,7 +162,7 @@ static bool block_save(bblock_p b)
 		/* printf("instr %d, pop %d,push %d,ok %d\n",INSTR(l),pop,push,ok);  */
 		if (!ok || (stack_diff -= pop) < 0)
 		{
-			return FALSE;
+			return false;
 		}
 		else
 		{

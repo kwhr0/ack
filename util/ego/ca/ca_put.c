@@ -9,13 +9,13 @@
 #include <em_mnem.h>
 #include <em_flag.h>
 #include <em_mes.h>
-#include "../share/types.h"
+#include "ego/share/types.h"
 #include "ca.h"
 #include "ca_put.h"
-#include "../share/debug.h"
-#include "../share/def.h"
-#include "../share/map.h"
-#include "../share/alloc.h"
+#include "ego/share/debug.h"
+#include "ego/share/def.h"
+#include "ego/share/map.h"
+#include "ego/share/alloc.h"
 
 #define outbyte(b) putc(b, outfile)
 
@@ -270,7 +270,7 @@ static void cputargs(line_p lnp)
 				cputstr(&ap->a_a.a_con.ac_con);
 				break;
 			default:
-				assert(FALSE);
+				assert(false);
 		}
 		ap = ap->a_next;
 		/* Avoid generating extremely long CON or ROM statements */
@@ -344,7 +344,7 @@ static void outoperand(line_p lnp)
 			}
 			break;
 		default:
-			assert(FALSE);
+			assert(false);
 	}
 }
 

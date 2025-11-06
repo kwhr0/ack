@@ -14,20 +14,20 @@
 #include <em_pseu.h>
 #include <em_flag.h>
 #include <em_mes.h>
-#include "../share/types.h"
-#include "../share/debug.h"
-#include "../share/def.h"
-#include "../share/map.h"
+#include "ego/share/types.h"
+#include "ego/share/debug.h"
+#include "ego/share/def.h"
+#include "ego/share/map.h"
 #include "ic.h"
 #include "ic_lookup.h"
 #include "ic_aux.h"
 #include "ic_io.h"
 #include "ic_lib.h"
-#include "../share/alloc.h"
-#include "../share/global.h"
-#include "../share/files.h"
-#include "../share/put.h"
-#include "../share/utils.h"
+#include "ego/share/alloc.h"
+#include "ego/share/global.h"
+#include "ego/share/files.h"
+#include "ego/share/put.h"
+#include "ego/share/utils.h"
 
 /* Global variables */
 
@@ -119,7 +119,7 @@ int main(int argc, char* argv[])
 	dfile = openfile(dname_out, "wb");
 	putdtable(fdblock, dfile);
 	pfile = openfile(pname_out, "wb");
-	putptable(fproc, pfile, FALSE);
+	putptable(fproc, pfile, false);
 	exit(0);
 }
 
@@ -163,7 +163,7 @@ static void process_lines(FILE* fout)
 	 * when we come accross its defining occurrence.
 	 */
 
-	eof = FALSE;
+	eof = false;
 	firstline = (line_p)0;
 	lastline = (line_p)0;
 	while (!eof)
@@ -186,7 +186,7 @@ static void process_lines(FILE* fout)
 				lastline = lnp;
 				break;
 			case EOFILE:
-				eof = TRUE;
+				eof = true;
 				fragm_type = DUNKNOWN;
 				if (firstline != (line_p)0)
 				{
@@ -391,7 +391,7 @@ static line_p readoperand(short instr)
 			VP(PROC(lnp));
 			break;
 		default:
-			assert(FALSE);
+			assert(false);
 	}
 	return lnp;
 }
@@ -578,7 +578,7 @@ static line_p inpseudo(short n)
 			}
 			return lnp;
 		default:
-			assert(FALSE);
+			assert(false);
 	}
 	UNREACHABLE_CODE;
 }

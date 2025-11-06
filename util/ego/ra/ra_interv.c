@@ -10,11 +10,11 @@
 
 #include <stdlib.h>
 #include <em_reg.h>
-#include "../share/types.h"
-#include "../share/debug.h"
-#include "../share/global.h"
-#include "../share/alloc.h"
-#include "../share/lset.h"
+#include "ego/share/types.h"
+#include "ego/share/debug.h"
+#include "ego/share/global.h"
+#include "ego/share/alloc.h"
+#include "ego/share/lset.h"
 #include "ra.h"
 #include "ra_interv.h"
 
@@ -197,10 +197,10 @@ bool not_disjoint(interv_p list1, interv_p list2)
 		}
 		else
 		{
-			return TRUE; /* not disjoint */
+			return true; /* not disjoint */
 		}
 	}
-	return FALSE; /* disjoint */
+	return false; /* disjoint */
 }
 
 bool contains(short t, interv_p timespan)
@@ -212,7 +212,7 @@ bool contains(short t, interv_p timespan)
 		if (t <= iv->i_stop)
 			return (t >= iv->i_start);
 	}
-	return FALSE;
+	return false;
 }
 
 interv_p copy_timespan(interv_p list)

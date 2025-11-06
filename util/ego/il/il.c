@@ -13,23 +13,23 @@
 #include <em_mnem.h>
 #include <em_pseu.h>
 #include "system.h"
-#include "../share/types.h"
+#include "ego/share/types.h"
 #include "il.h"
-#include "../share/debug.h"
-#include "../share/alloc.h"
-#include "../share/global.h"
-#include "../share/lset.h"
-#include "../share/files.h"
-#include "../share/map.h"
+#include "ego/share/debug.h"
+#include "ego/share/alloc.h"
+#include "ego/share/global.h"
+#include "ego/share/lset.h"
+#include "ego/share/files.h"
+#include "ego/share/map.h"
 #include "il_aux.h"
 #include "il1_anal.h"
 #include "il1_aux.h"
 #include "il2_aux.h"
 #include "il3_change.h"
 #include "il3_subst.h"
-#include "../share/get.h"
-#include "../share/put.h"
-#include "../share/go.h"
+#include "ego/share/get.h"
+#include "ego/share/put.h"
+#include "ego/share/go.h"
 #include <limits.h>
 
 int calnr;
@@ -81,10 +81,10 @@ static void pass1(const char* lnam, const char* bnam, const char* cnam)
 	/* use information from the procedure table to
 	 * see which calls certainly cannot be expanded.
 	 */
-	while (TRUE)
+	while (true)
 	{
 		laddr = ftell(f);
-		if (!getunit(gf, f, &kind, &g, &l, &curproc, TRUE))
+		if (!getunit(gf, f, &kind, &g, &l, &curproc, true))
 			break;
 		/* Read the control flow graph and EM text of
 		 * one procedure and analyze it.
@@ -181,7 +181,7 @@ static void pass2(const char* cnam, long space)
 
 void pass3(const char* lnam, const char* lnam2)
 {
-	bool verbose = TRUE;
+	bool verbose = true;
 	FILE *lfile, *lfilerand, *lfile2, *sfile;
 	call_p c, next;
 	line_p l, startscan, cal;
@@ -347,7 +347,7 @@ int main(int argc, char* argv[])
 	il_cleanptab(fproc); /* remove extended data structures */
 	putdtable(fdblock, f);
 	f = openfile(files->pname_out, "wb");
-	putptable(fproc, f, FALSE);
+	putptable(fproc, f, false);
 	report("inline substitutions", Ssubst);
 #ifdef VERBOSE
 	if (verbose_flag)
